@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/tobyhagan/personal/go-chat'
+rm -rf bin/ tmp/ logs/ client/build client/node_modules/
+make: Leaving directory '/home/tobyhagan/personal/go-chat'
+ 
