@@ -36,7 +36,14 @@ func CreateUser(c *fiber.Ctx) error {
 			"message": "Passwords do not match!",
 		})
 	}
-	if err := config.ConnDB("Users").FindOne(c.Context(), bson.D{{Key: "email", Value: user.Email}}).Decode(&user); err == nil {
+	//set filter to be mongo OR query for email OR name
+	filter := bson.M{
+		"$or": bson.A{
+			bson.M{"email": user.Email},
+			bson.M{"name": user.Name},
+		},
+	}
+	if err := config.ConnDB("Users").FindOne(c.Context(), filter).Decode(&user); err == nil {
 		return c.Status(400).JSON(fiber.Map{
 			"message": "Email/Username already exists!",
 		})

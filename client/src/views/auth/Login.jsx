@@ -62,6 +62,15 @@ export default function Login() {
           >
             Login
           </button>
+          <div className="w-full py-1 text-center text-sm text-gray-600">
+            Don&apos;t have an account?{' '}
+            <a
+              href="/auth/register/"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Register
+            </a>
+          </div>
         </form>
       </div>
     </div>

@@ -31,7 +31,7 @@ export function Header() {
                 Rooms
               </a>
               <a
-                href="#"
+                href="/blog"
                 className="py-5 px-3 text-gray-700 hover:text-gray-900"
               >
                 Blog

@@ -77,13 +77,12 @@ func HandleSocket(c *websocket.Conn) {
 		messageType, msg, err := c.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				log.Println("user disconnected", s.User)
 				log.Println("read error: ", err)
 			}
 			return
 		}
-		//print msg and messageType
 		if messageType == websocket.TextMessage {
-			// println("sending message to room", s.Room, "from User", s.User)
 			fmt.Println("message: ", string(msg))
 			m := structs.Message{Data: msg, Room: s.Room}
 			h.broadcast <- m

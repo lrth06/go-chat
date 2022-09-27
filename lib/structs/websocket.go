@@ -1,6 +1,8 @@
 package structs
 
-import "github.com/gofiber/websocket/v2"
+import (
+	"github.com/gofiber/websocket/v2"
+)
 
 type Message struct {
 	Data []byte `json:"data"`

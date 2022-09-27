@@ -92,6 +92,15 @@ export default function Register() {
           >
             Register
           </button>
+          <div className="w-full py-1 text-center text-sm text-gray-600">
+            Already have an account?{' '}
+            <a
+              href="/auth/login/"
+              className="text-gray-600 hover:text-gray-900 "
+            >
+              Login
+            </a>
+          </div>
         </form>
       </div>
     </div>

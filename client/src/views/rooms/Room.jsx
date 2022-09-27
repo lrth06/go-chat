@@ -15,7 +15,7 @@ export default function Room() {
   useEffect(() => {
     if (!user) return;
     ws.current = new WebSocket(
-      `ws://localhost:3000/ws/${id}?v=1.0&token=${token}`
+      `ws://localhost:3000/ws/room/${id}?v=1.0&token=${token}`
     );
     ws.current.onopen = (e) => {
       console.log('connected');
@@ -23,16 +23,16 @@ export default function Room() {
     };
     ws.current.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      console.log(e)
+      console.log(e);
       let msg = {};
       if (data.type === 'join') {
         const sender = parseJwt(data.data);
-        if(sender.id !== user.id){
-          console.log(sender.id,user.id);
-         let payload ={
+        if (sender.id !== user.id) {
+          console.log(sender.id, user.id);
+          let payload = {
             type: 'existingUser',
-            data: token
-          }
+            data: token,
+          };
         }
         msg = {
           isServer: true,

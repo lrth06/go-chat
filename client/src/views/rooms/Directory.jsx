@@ -60,7 +60,65 @@ export default function RoomIndex() {
                   </a>
                 </h2>
                 <p className="font-primary text-sm leading-relaxed">
-                  A place for all. Users capped at 100.
+                  A place for all users to meet. Users capped at 100.
+                </p>
+              </div>
+            </div>
+            <div className="p-4 md:w-1/2 xl:w-1/3">
+              <div className="rounded-lg border border-gray-200 p-6">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-500">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="h-10 w-10"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="6" cy="6" r="3"></circle>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
+                  </svg>
+                </div>
+                <h2 className="title-font mb-2 text-lg font-medium text-gray-900">
+                  <a href="/room/colab" className="text-blue-500">
+                    Open Collaboration
+                  </a>
+                </h2>
+                <p className="font-primary text-sm leading-relaxed">
+                  Come here to meet new professionals wanting to collab with
+                  others.
+                  <br /> Community heavily moderated.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 md:w-1/2 xl:w-1/3">
+              <div className="rounded-lg border border-gray-200 p-6">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-500">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="h-10 w-10"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <h2 className="title-font mb-2 text-lg font-medium text-gray-900">
+                  <a href="/room/rants" className="text-blue-500">
+                    Rants and Raves
+                  </a>
+                </h2>
+                <p className="font-primary text-sm leading-relaxed">
+                  Need to get something off your chest? Community members are
+                  encouraged to share their complaints here.
+                  <br /> Community heavily moderated.
                 </p>
               </div>
             </div>

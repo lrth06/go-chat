@@ -40,11 +40,10 @@ func SetupRoutes(app *fiber.App) {
 	app.Use(etag.New())
 
 	ws := app.Group("/ws", handlers.HandleUpgrade)
-	//ws/b9fe28f7-9180-40e6-9488-36830507f7e1
-	ws.Get("/:id", websocket.New(func(c *websocket.Conn) {
+	//ws/room/b9fe28f7-9180-40e6-9488-36830507f7e1
+	ws.Get("/room/:id", websocket.New(func(c *websocket.Conn) {
 		handlers.HandleSocket(c)
 	}))
-	//api
 	api := app.Group("/api")
 
 	//api/v1

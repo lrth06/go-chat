@@ -8,10 +8,14 @@ import Profile from './views/user/Profile';
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
 import RoomEditor from './views/rooms/Editor';
+import Post from './views/blog/Post';
+import EditPost from './views/blog/EditPost';
 import './css/styles.css';
 import { ThemeContext } from './context/ThemeContext';
 import { UserContext } from './context/UserContext';
 import PasswordReset from './views/auth/PasswordReset';
+import PostDirectory from './views/blog/PostDirectory';
+import Pricing from './views/pricing/Base';
 
 function App() {
   const [dark, setDark] = useState(null);
@@ -51,6 +55,13 @@ function App() {
                 <Route path="edit" element={<RoomEditor />} />
               </Route>
             </Route>
+            <Route path="/blog">
+              <Route index element={<PostDirectory />} />
+              <Route path="post/:id" element={<Post />} />
+              <Route path="post/:id/edit" element={<EditPost />} />
+              <Route path="new" element={<EditPost />} />
+            </Route>
+            <Route path="/pricing" element={<Pricing />} />
           </Routes>
         </UserContext.Provider>
       </ThemeContext.Provider>

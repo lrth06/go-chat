@@ -1,1 +1,1 @@
-{"buildTargets":["build-api","build-client","clean","client","deploy","deploy-api","dev","kill","purge","run-api","server"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
+{"buildTargets":["build-api","build-client","clean","client","deploy","deploy-api","dev","kill","make","purge","run-api","server"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

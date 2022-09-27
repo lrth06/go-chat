@@ -27,6 +27,7 @@ export default function MessageBar({ ws, token }) {
         required={true}
         value={values.message}
         onChange={handleChange}
+        autoComplete="off"
         name="message"
         placeholder="Type a message..."
       />
