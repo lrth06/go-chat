@@ -31,8 +31,6 @@ func HandleUpgrade(c *fiber.Ctx) error {
 	return fiber.ErrUpgradeRequired
 }
 
-
-
 func (h *hub) Run() {
 	for {
 		select {
