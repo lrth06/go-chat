@@ -10,7 +10,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19.1
       - name: Run go mod tidy
         run: go mod tidy
       - name: Check for changes
@@ -26,7 +26,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.19.1
       - name: Run go fmt
         run: go fmt ./...
       - name: Check for changes
