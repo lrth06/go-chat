@@ -44,7 +44,12 @@ func SetupRoutes(app *fiber.App) {
 	ws.Get("/room/:id", websocket.New(func(c *websocket.Conn) {
 		handlers.HandleSocket(c)
 	}))
+
+
 	api := app.Group("/api")
+	api.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Thank you for using the go-chat api, please refer to the documentation for more information.")
+	})
 
 	//api/v1
 	v := api.Group("/:version", func(c *fiber.Ctx) error {
