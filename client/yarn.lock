@@ -1400,6 +1400,14 @@
   "resolved" "https://registry.npmjs.org/@jridgewell/set-array/-/set-array-1.1.1.tgz"
   "version" "1.1.1"
 
+"@jridgewell/source-map@^0.3.2":
+  "integrity" "sha512-m7O9o2uR8k2ObDysZYzdfhb08VuEml5oWGiosa1VdaPZ/A6QyPkAJuwN0Q1lhULOf6B7MtQmHENS743hWtCrgw=="
+  "resolved" "https://registry.npmjs.org/@jridgewell/source-map/-/source-map-0.3.2.tgz"
+  "version" "0.3.2"
+  dependencies:
+    "@jridgewell/gen-mapping" "^0.3.0"
+    "@jridgewell/trace-mapping" "^0.3.9"
+
 "@jridgewell/sourcemap-codec@^1.4.10":
   "integrity" "sha512-Fg32GrJo61m+VqYSdRSjRXMjQ06j8YIYfcTqndLYVAaHmroZHLJZCydsWBOTDqXS2v+mjxohBWEMfg97GXmYQg=="
   "resolved" "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.11.tgz"
@@ -8031,13 +8039,6 @@
   "resolved" "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
   "version" "0.6.1"
 
-"source-map@~0.8.0-beta.0":
-  "integrity" "sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA=="
-  "resolved" "https://registry.npmjs.org/source-map/-/source-map-0.8.0-beta.0.tgz"
-  "version" "0.8.0-beta.0"
-  dependencies:
-    "whatwg-url" "^7.0.0"
-
 "sourcemap-codec@^1.4.8":
   "integrity" "sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA=="
   "resolved" "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz"
@@ -8395,13 +8396,13 @@
     "terser" "^5.7.2"
 
 "terser@^5.0.0", "terser@^5.10.0", "terser@^5.7.2":
-  "integrity" "sha512-sgQ99P+fRBM1jAYzN9RTnD/xEWx/7LZgYTCRgmYriSq1wxxqiQPJgXkkLBBuwySDWJ2PP0PnVQyuf4xLUuH4Ng=="
-  "resolved" "https://registry.npmjs.org/terser/-/terser-5.13.0.tgz"
-  "version" "5.13.0"
+  "integrity" "sha512-L1BJiXVmheAQQy+as0oF3Pwtlo4s3Wi1X2zNZ2NxOB4wx9bdS9Vk67XQENLFdLYGCK/Z2di53mTj/hBafR+dTA=="
+  "resolved" "https://registry.npmjs.org/terser/-/terser-5.15.0.tgz"
+  "version" "5.15.0"
   dependencies:
+    "@jridgewell/source-map" "^0.3.2"
     "acorn" "^8.5.0"
     "commander" "^2.20.0"
-    "source-map" "~0.8.0-beta.0"
     "source-map-support" "~0.5.20"
 
 "test-exclude@^6.0.0":

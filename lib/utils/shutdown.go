@@ -3,18 +3,11 @@ package utils
 import (
 	"fmt"
 	"os"
-	"os/signal"
-	"syscall"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func HandleShutdown(app *fiber.App, c chan os.Signal) {
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
-	//lint:ignore S1005 This is a simple way to wait for a signal
-	_ = <-c
-	fmt.Println("\nGracefully shutting down...")
-	_ = app.Shutdown()
+func HandleShutdown(app *fiber.App) {
 	fmt.Println("Running cleanup tasks...")
 	// Cleanup Tasks
 	fmt.Println("Removing tmp files...")
@@ -22,8 +15,8 @@ func HandleShutdown(app *fiber.App, c chan os.Signal) {
 	os.Chmod("./tmp/", 0777)
 	os.RemoveAll("./tmp/")
 	os.RemoveAll("./logs/")
-	close(c)
 	fmt.Println("Cleanup tasks completed!")
 	fmt.Println("Server Shutdown Successfully!")
+	app.Shutdown()
 	os.Exit(0)
 }

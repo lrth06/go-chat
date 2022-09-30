@@ -69,6 +69,7 @@ func SetupRoutes(app *fiber.App) {
 	//user routes
 	//api/v1/users
 	v.Get("/users", users.GetUsers)
+
 	//api/v1/user/
 	user := v.Group("/user", func(c *fiber.Ctx) error {
 		c.Set("API", "User")

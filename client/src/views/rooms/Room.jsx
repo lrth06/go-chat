@@ -7,11 +7,22 @@ import parseJwt from '../../utils/parseJwt';
 import UserList from '../../components/chat/UserList';
 export default function Room() {
   const { user } = useContext(UserContext);
+
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const { id } = useParams();
   const [token] = useState(localStorage.getItem('token'));
   const ws = useRef(null);
+
+//redirect to login if not logged in
+
+  useEffect(() => {
+
+    if (!token) {
+      window.location.href = '/auth/login';
+    }
+  }, [token]);
+
   useEffect(() => {
     if (!user) return;
     ws.current = new WebSocket(

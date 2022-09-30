@@ -7,16 +7,21 @@ export default function MessageBar({ ws, token }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    ws.current.send(
-      JSON.stringify({
-        type: 'message',
-        data: {
-          text: values.message,
-          time: new Date().getTime(),
-          user: parseJwt(token),
-        },
-      })
-    );
+    try{
+      ws.current.send(
+        JSON.stringify({
+          type: 'message',
+          data: {
+            text: values.message,
+            time: new Date().getTime(),
+            user: parseJwt(token),
+          },
+        })
+      );
+
+    }catch(e){
+      console.log(e);
+    }
     values.message = '';
   };
   return (

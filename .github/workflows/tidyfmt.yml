@@ -1,0 +1,35 @@
+name: Build and test Go
+on: [push, pull_request]
+jobs:
+  tidy:
+    name: Tidy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - name: Run go mod tidy
+        run: go mod tidy
+      - name: Check for changes
+        run: |
+          git diff --exit-code go.mod go.sum
+          git diff --exit-code --name-only --diff-filter=U | wc -l | xargs test 0 -eq
+  fmt:
+    name: Fmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - name: Run go fmt
+        run: go fmt ./...
+      - name: Check for changes
+        run: |
+          git diff --exit-code
+          git diff --exit-code --name-only --diff-filter=U | wc -l | xargs test 0 -eq

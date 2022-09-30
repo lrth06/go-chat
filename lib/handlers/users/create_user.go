@@ -2,6 +2,7 @@ package users
 
 import (
 	"encoding/base64"
+	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -26,6 +27,7 @@ func CreateUser(c *fiber.Ctx) error {
 	user := models.User{}
 	pass2 := passVerification{}
 	if err := c.BodyParser(&user); err != nil {
+		fmt.Println(err)
 		return c.Status(400).JSON(fiber.Map{"msg": "Invalid request."})
 	}
 	if err := c.BodyParser(&pass2); err != nil {

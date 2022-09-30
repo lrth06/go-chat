@@ -17,9 +17,15 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem('token', data.token);
+        if(data.token){
+          localStorage.setItem('token', data.token);
+          window.location.href = '/';
+        }
         console.log(data);
-      });
+      }).catch((e)=>{
+        console.log(e);
+      }
+      );
   }
   return (
     <div className="mx-auto flex h-screen min-h-full items-center justify-center overflow-hidden p-5 ">

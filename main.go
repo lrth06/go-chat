@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"os/signal"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/recover"
 
 	"github.com/lrth06/go-chat/lib/routes"
 	"github.com/lrth06/go-chat/lib/structs"
@@ -17,19 +18,28 @@ import (
 const idleTimeout = 5 * time.Second
 
 func main() {
-	c := make(chan os.Signal, 1)
 	config, err := config.GetConfig()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	utils.HandleStartup(config)
+
 	app := Server(config)
 
-	app.Use(recover.New())
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		//lint:ignore S1005 This is a simple way to wait for a signal
+		_ = <-c
+		//cleanup tasks here
+		fmt.Println("\nShutting down server...")
+		utils.HandleShutdown(app)
+		_ = app.Shutdown()
+	}()
+
 	if err := app.Listen(":" + config.Port); err != nil {
 		log.Panic(err)
 	}
-
-	utils.HandleShutdown(app, c)
 }
 
 func Server(config structs.Config) *fiber.App {
