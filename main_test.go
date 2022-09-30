@@ -40,6 +40,4 @@ func TestTruthiness(t *testing.T) {
 
 	}
 
-
-
 }
