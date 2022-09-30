@@ -1,4 +1,4 @@
-name: Build and test Go
+name: Clean up go.mod and format go files
 on: [push, pull_request]
 jobs:
   tidy:
