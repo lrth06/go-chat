@@ -45,7 +45,6 @@ func SetupRoutes(app *fiber.App) {
 		handlers.HandleSocket(c)
 	}))
 
-
 	api := app.Group("/api")
 	api.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Thank you for using the go-chat api, please refer to the documentation for more information.")
