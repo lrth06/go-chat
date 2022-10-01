@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gofiber/fiber/v2 v2.38.1
-	github.com/gofiber/websocket/v2 v2.0.21
+	github.com/gofiber/websocket/v2 v2.0.25
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
