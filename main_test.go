@@ -2,17 +2,16 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"testing"
 
-	"github.com/lrth06/go-chat/lib/utils/config"
+	"github.com/lrth06/go-chat/lib/structs"
 )
 
 func TestTruthiness(t *testing.T) {
-	config, err := config.GetConfig()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	config := structs.Config{
+		Port: "3000",
+		AppEnv: "test",
 	}
 	app := Server(config)
 	if app == nil {
