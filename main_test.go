@@ -10,7 +10,7 @@ import (
 
 func TestTruthiness(t *testing.T) {
 	config := structs.Config{
-		Port: "3000",
+		Port:   "3000",
 		AppEnv: "test",
 	}
 	app := Server(config)
