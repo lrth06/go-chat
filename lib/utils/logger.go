@@ -14,6 +14,7 @@ import (
 )
 
 func LogItem(logLevel string, payload structs.Payload) error {
+
 	env, err := config.GetConfig()
 	if err != nil {
 		panic(err)

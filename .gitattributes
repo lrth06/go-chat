@@ -10,6 +10,11 @@ go.sum merge=union
 
 * text=auto
 
+#mark node_modules as vendored
+client/node_modules/ linguist-vendored
+
+
+
 #
 # The above will handle all files NOT found below
 #

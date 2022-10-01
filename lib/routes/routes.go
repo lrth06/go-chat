@@ -28,7 +28,11 @@ func SetupRoutes(app *fiber.App) {
 		imagePath = "./tmp/uploads/"
 	}
 	app.Static("/images", imagePath)
-	app.Use(middleware.Logger)
+	if appEnv != "development" {
+		app.Use(middleware.Logger)
+
+		// app.Use(compress.New())
+	}
 	app.Use(cors.New())
 	app.Use(compress.New(compress.Config{
 		Level: compress.LevelBestSpeed,
@@ -46,6 +50,7 @@ func SetupRoutes(app *fiber.App) {
 	}))
 
 	api := app.Group("/api")
+
 	api.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Thank you for using the go-chat api, please refer to the documentation for more information.")
 	})

@@ -22,7 +22,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	utils.HandleStartup(config)
 
 	app := Server(config)
 
@@ -44,10 +43,10 @@ func main() {
 
 func Server(config structs.Config) *fiber.App {
 	app := fiber.New(fiber.Config{
-		ReadTimeout:           5 * time.Second,
-		WriteTimeout:          10 * time.Second,
-		IdleTimeout:           idleTimeout,
-		Prefork:               config.AppEnv == "production",
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  idleTimeout,
+		// Prefork:               config.AppEnv == "production",
 		AppName:               "Go-Chat",
 		DisableStartupMessage: config.AppEnv == "production",
 	})
@@ -57,6 +56,7 @@ func Server(config structs.Config) *fiber.App {
 		return c.Next()
 	})
 	utils.HandleStartup(config)
+
 	routes.SetupRoutes(app)
 	return app
 }

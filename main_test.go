@@ -2,26 +2,24 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"testing"
 
-	"github.com/lrth06/go-chat/lib/utils/config"
+	"github.com/lrth06/go-chat/lib/structs"
 )
 
-func TestTruthiness(t *testing.T) {
-	config, err := config.GetConfig()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+func TestPublicRoutes(t *testing.T) {
+	config := structs.Config{
+		AppEnv: "test",
+		Port:   "3000",
 	}
 	app := Server(config)
 	if app == nil {
 		t.Error("app is nil")
 	}
 
-	//test public routes
-
 	routes := []string{
+		"/",
 		"/api",
 	}
 
@@ -37,7 +35,15 @@ func TestTruthiness(t *testing.T) {
 		if resp.StatusCode != 200 {
 			t.Errorf("Expected 200, got %d", resp.StatusCode)
 		}
-
 	}
 
+	//log success and exit with code 0
+	t.Log("Test passed")
+
+}
+
+func TestMaths(t *testing.T) {
+	if 1+1 != 2 {
+		t.Error("1 + 1 should equal 2")
+	}
 }
