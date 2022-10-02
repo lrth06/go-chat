@@ -19,7 +19,6 @@ func TestTruthiness(t *testing.T) {
 	}
 
 	routes := []string{
-		"/",
 		"/api/v1",
 	}
 
