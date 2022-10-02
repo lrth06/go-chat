@@ -20,7 +20,7 @@ func TestTruthiness(t *testing.T) {
 
 	routes := []string{
 		"/",
-		"/api",
+		"/api/v1",
 	}
 
 	for _, route := range routes {

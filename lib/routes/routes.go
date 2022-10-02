@@ -51,14 +51,16 @@ func SetupRoutes(app *fiber.App) {
 
 	api := app.Group("/api")
 
-	api.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Thank you for using the go-chat api, please refer to the documentation for more information.")
-	})
-
 	//api/v1
 	v := api.Group("/:version", func(c *fiber.Ctx) error {
 		c.Set("Version", c.Params("version"))
 		return c.Next()
+	})
+
+	v.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"message": "Thank you for using the go-chat api, please refer to the documentation for more information.",
+		})
 	})
 	//api/v1/random
 	v.Get("/random", handlers.GetRandomID)
