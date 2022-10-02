@@ -5,15 +5,15 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/lrth06/go-chat/lib/structs"
+	"github.com/lrth06/go-chat/lib/utils/config"
 )
 
 func TestTruthiness(t *testing.T) {
-	config := structs.Config{
-		Port:   "3000",
-		AppEnv: "test",
+	env, err := config.GetConfig()
+	if err != nil {
+		t.Error(err)
 	}
-	app := Server(config)
+	app := Server(env)
 	if app == nil {
 		t.Error("app is nil")
 	}
