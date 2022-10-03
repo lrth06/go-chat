@@ -25,7 +25,7 @@ func ExtractToken(c *fiber.Ctx) error {
 	})
 	if err != nil {
 		return c.Status(401).JSON(map[string]string{
-			"message": "Invalid token",
+			"msg": "Invalid token",
 		})
 	}
 	c.Set("id", claims["id"].(string))
