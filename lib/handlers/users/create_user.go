@@ -24,6 +24,9 @@ func CreateUser(c *fiber.Ctx) error {
 	type passVerification struct {
 		Password2 string `json:"password2"`
 	}
+
+
+
 	user := models.User{}
 	pass2 := passVerification{}
 	if err := c.BodyParser(&user); err != nil {
@@ -33,9 +36,13 @@ func CreateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(&pass2); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "Password confirmation is required!"})
 	}
+	// reject if required fields are empty
+	if user.Name == "" || user.Password == "" || user.Email == "" {
+		return c.Status(400).JSON(fiber.Map{"msg": "Username, password and email are required!"})
+	}
 	if user.Password != pass2.Password2 {
 		return c.Status(400).JSON(fiber.Map{
-			"message": "Passwords do not match!",
+			"msg": "Passwords do not match!",
 		})
 	}
 	//set filter to be mongo OR query for email OR name
@@ -47,7 +54,7 @@ func CreateUser(c *fiber.Ctx) error {
 	}
 	if err := config.ConnDB("Users").FindOne(c.Context(), filter).Decode(&user); err == nil {
 		return c.Status(400).JSON(fiber.Map{
-			"message": "Email/Username already exists!",
+			"msg": "Email/Username already exists!",
 		})
 	}
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)

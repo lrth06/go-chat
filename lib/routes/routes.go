@@ -59,7 +59,7 @@ func SetupRoutes(app *fiber.App) {
 
 	v.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
-			"message": "Thank you for using the go-chat api, please refer to the documentation for more information.",
+			"msg": "Thank you for using the go-chat api, please refer to the documentation for more information.",
 		})
 	})
 	//api/v1/random
