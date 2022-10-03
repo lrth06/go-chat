@@ -1,9 +1,12 @@
 import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
 import axios from 'axios';
+import {errorAlert} from '../../components/alert/error';
+import {SuccessAlert} from '../../components/alert/success';
 
 export default function Register() {
   const [error, setError] = useState();
+  const [success, setSuccess] = useState();
   const [values, handleChange] = useForm({
     name: '',
     email: '',
@@ -14,20 +17,21 @@ export default function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
     try{
-      if(!values.name || !values.email || !values.password || !values.password2) {
-        setError('Please fill in all fields');
-      } else if(values.password !== values.password2) {
-        setError('Passwords do not match');
-      }
-
       const res = await axios.post('/api/v1/user', values);
       console.log("res",res)
       if(res.data.token){
+        setSuccess(res.data.msg);
+        setError(null);
         localStorage.setItem('token', res.data.token);
-        window.location.href = '/';
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
       }
     }catch(e){
       setError(e.response.data.msg)
+      setTimeout(() => {
+        setError("");
+      }, 5000);
     }
 
   }
@@ -41,6 +45,8 @@ export default function Register() {
           </svg>
         </div>
         <form className="p-12 shadow-2xl md:p-24" onSubmit={handleSubmit}>
+        {error && errorAlert(error)}
+        {success && SuccessAlert(success)}
         {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
         <strong className="font-bold">Error!</strong>
         <br />
