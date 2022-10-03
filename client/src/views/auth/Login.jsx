@@ -1,5 +1,6 @@
 import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -7,30 +8,19 @@ export default function Login() {
     email: '',
     password: '',
   });
-  function handleSubmit(e) {
+ async function handleSubmit(e) {
     e.preventDefault();
-    console.log(values);
-    fetch('/api/v1/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
-      .then((res) =>{
-        res.json()
-      })
-      .then((data,res) => {
-        console.log("data",data)
-        console.log("res",res)
-        if(data.token){
-          localStorage.setItem('token', data.token);
-          window.location.href = '/';
-        }
-      }).catch((e)=>{
-        console.log(e)
+    try{
+      const res = await axios.post('/api/v1/auth/login', values);
+      console.log("res",res)
+      if(res.data.token){
+        localStorage.setItem('token', res.data.token);
+        window.location.href = '/';
       }
-      );
+    }catch(e){
+      setError(e.response.data.msg)
+    }
+
   }
   return (
     <div className="mx-auto flex h-screen min-h-full items-center justify-center overflow-hidden p-5 ">
@@ -45,6 +35,7 @@ export default function Login() {
         <form className="p-12 shadow-2xl md:p-24" onSubmit={handleSubmit}>
         {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
         <strong className="font-bold">Error!</strong>
+        <br />
         <strong>{error}</strong>
         </div>
       }
