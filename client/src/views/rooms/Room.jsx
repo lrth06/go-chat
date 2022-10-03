@@ -81,6 +81,22 @@ export default function Room() {
   }, [user]);
 
   useEffect(() => {
+    //get room data
+    fetch(`/api/v1/room/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        },
+        })
+        .then((res) =>
+        console.log(res)
+        )
+
+  }, [id, token]);
+
+
+  useEffect(() => {
     window.onbeforeunload = function (e) {
       ws.current.send(JSON.stringify({ type: 'leave', data: token }));
     };
@@ -90,7 +106,6 @@ export default function Room() {
     <div className="container mx-auto min-h-full p-5">
       <Chat messages={messages} />
       <MessageBar ws={ws} token={token} />
-      {/* <pre>{JSON.stringify(users,null,2)}</pre> */}
     </div>
   );
 }

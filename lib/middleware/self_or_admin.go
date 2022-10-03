@@ -28,10 +28,10 @@ func SelfOrAdmin(c *fiber.Ctx) error {
 	_, err = jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
-
 	if err != nil {
 		return c.Status(401).SendString("Unauthorized")
 	}
+
 	role := base64.StdEncoding.EncodeToString([]byte("site:admin"))
 	role2 := base64.StdEncoding.EncodeToString([]byte("site:moderator"))
 	for _, r := range claims["roles"].([]interface{}) {

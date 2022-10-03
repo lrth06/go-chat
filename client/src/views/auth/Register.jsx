@@ -11,7 +11,7 @@ export default function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(values);
-    fetch('http://localhost:3000/api/v1/user/', {
+    fetch('/api/v1/user/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

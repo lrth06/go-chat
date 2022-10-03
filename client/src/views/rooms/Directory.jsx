@@ -14,7 +14,7 @@ export default function RoomIndex() {
   }
   function goToRoom(room) {
     if (!room) {
-      fetch('http://localhost:3000/api/v1/random', {
+      fetch('/api/v1/random', {
         method: 'GET',
         headers,
       })
