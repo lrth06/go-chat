@@ -32,12 +32,13 @@ function App() {
     const parsedToken = JSON.parse(window.atob(base64));
     setUser(parsedToken);
   }, [token]);
-
+//TODO: add div for light/dark mode selection at mentioned location below
   return (
     <BrowserRouter>
       <ThemeContext.Provider value={themeValue}>
         <UserContext.Provider value={userValue}>
           <Header />
+          {/* ADD div HERE for top level dark/light mode selection */}
           <Routes>
             <Route path="*" element={<Navigate to={'/'} />} />
             <Route path="/room/undefined" element={<Navigate to={'/room'} />} />
