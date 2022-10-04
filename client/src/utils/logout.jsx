@@ -3,8 +3,8 @@ export default async function Logout(token) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    },
   });
   let data = await res.json();
 

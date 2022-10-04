@@ -7,7 +7,7 @@ export default function MessageBar({ ws, token }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try{
+    try {
       ws.current.send(
         JSON.stringify({
           type: 'message',
@@ -18,8 +18,7 @@ export default function MessageBar({ ws, token }) {
           },
         })
       );
-
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
     values.message = '';

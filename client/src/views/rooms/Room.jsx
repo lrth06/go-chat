@@ -14,10 +14,9 @@ export default function Room() {
   const [token] = useState(localStorage.getItem('token'));
   const ws = useRef(null);
 
-//redirect to login if not logged in
+  //redirect to login if not logged in
 
   useEffect(() => {
-
     if (!token) {
       window.location.href = '/auth/login';
     }
@@ -87,14 +86,9 @@ export default function Room() {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        },
-        })
-        .then((res) =>
-        console.log(res)
-        )
-
+      },
+    }).then((res) => console.log(res));
   }, [id, token]);
-
 
   useEffect(() => {
     window.onbeforeunload = function (e) {

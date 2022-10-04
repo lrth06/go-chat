@@ -24,7 +24,9 @@ function App() {
   const [user, setUser] = useState(null);
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   useEffect(() => {
-    if (!token || token == undefined) {return};
+    if (!token || token == undefined) {
+      return;
+    }
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const parsedToken = JSON.parse(window.atob(base64));

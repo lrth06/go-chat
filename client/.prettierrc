@@ -4,5 +4,6 @@
   "bracketSpacing": true,
   "useTabs": false,
   "tabWidth": 2,
-  "plugins": ["react", "prettier-plugin-tailwindcss"]
+  "plugins": ["react", "prettier-plugin-tailwindcss"],
+  "extends": ["prettier", "prettier/react", "prettier/tailwind"]
 }
