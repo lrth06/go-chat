@@ -13,6 +13,8 @@ import (
 	"github.com/lrth06/go-chat/lib/utils/config"
 )
 
+//HACK This needs to be refactored ASAP
+
 func LogItem(logLevel string, payload structs.Payload) error {
 
 	env, err := config.GetConfig()

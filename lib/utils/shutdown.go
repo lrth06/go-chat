@@ -8,6 +8,7 @@ import (
 )
 
 func HandleShutdown(app *fiber.App) {
+	//TODO: Implement production shutdown
 	fmt.Println("Running cleanup tasks...")
 	// Cleanup Tasks
 	fmt.Println("Removing tmp files...")

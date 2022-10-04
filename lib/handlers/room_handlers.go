@@ -2,6 +2,8 @@ package handlers
 
 import "github.com/gofiber/fiber/v2"
 
+// TODO: Implement this entire file
+
 func CreateRoom(c *fiber.Ctx) error {
 	return c.Status(500).JSON(map[string]string{
 		"msg": "Not implemented",

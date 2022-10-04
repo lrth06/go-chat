@@ -9,6 +9,7 @@ import (
 )
 
 func HandleStartup(config structs.Config) {
+	// TODO: Implement production startup
 	if config.AppEnv == "development" {
 		os.MkdirAll("./tmp/uploads/users", os.ModePerm)
 		os.MkdirAll("./tmp/server", os.ModePerm)

@@ -24,8 +24,7 @@ func DeleteUser(c *fiber.Ctx) error {
 	if _, err := config.ConnDB("Users").DeleteOne(c.Context(), query); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "User not deleted."})
 	}
-
-	//TODO: add production delete
+	// TODO: fix this (convert to production delete)
 	//delete users images directory
 	if err := os.RemoveAll("./tmp/uploads/users/" + idParam); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "User images not deleted."})

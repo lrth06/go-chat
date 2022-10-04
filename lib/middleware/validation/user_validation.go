@@ -5,6 +5,6 @@ import (
 )
 
 func ValidateUser(user *structs.User) error {
-
+// FIXME: Currently Returns NIL, SHOULD BE IMPLEMENTED ASAP
 	return nil
 }
