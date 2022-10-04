@@ -79,16 +79,7 @@ export default function Room() {
     };
   }, [user]);
 
-  useEffect(() => {
-    //get room data
-    fetch(`/api/v1/room/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => console.log(res));
-  }, [id, token]);
+
 
   useEffect(() => {
     window.onbeforeunload = function (e) {

@@ -1,5 +1,6 @@
 import { useForm } from '../../hooks/useForm';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 export default function RoomIndex() {
   const [values, handleChange] = useForm({
     room: '',
@@ -12,17 +13,18 @@ export default function RoomIndex() {
     e.preventDefault();
     goToRoom(values.room);
   }
-  function goToRoom(room) {
+  async function goToRoom(room) {
     if (!room) {
-      fetch('/api/v1/random', {
-        method: 'GET',
-        headers,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          return navigate(`/room/${data.id}`);
-        });
+      const res = await axios.get('/api/v1/random', {
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
+  );
+      navigate(`/room/${res.data.id}`);
+  }
     navigate(`/room/${room}`);
   }
 

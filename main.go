@@ -59,7 +59,6 @@ func Server(config structs.Config) *fiber.App {
 	app.Use(cors.New())
 	app.Use(logger.New())
 	utils.HandleStartup(config)
-
 	routes.SetupRoutes(app)
 	return app
 }
