@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,6 +10,7 @@ import (
 )
 
 func ExtractToken(c *fiber.Ctx) error {
+	fmt.Println("Extracting Token")
 	env, err := config.GetConfig()
 	if err != nil {
 		return c.SendStatus(400)
@@ -28,7 +30,7 @@ func ExtractToken(c *fiber.Ctx) error {
 			"msg": "Invalid token",
 		})
 	}
-	c.Set("id", claims["id"].(string))
-	c.Set("token", token)
+	c.Locals("id", claims["id"])
+
 	return c.Next()
 }

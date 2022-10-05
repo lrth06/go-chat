@@ -104,10 +104,10 @@ func SetupRoutes(app *fiber.App) {
 		c.Set("API", "Room")
 		return c.Next()
 	})
-	room.Post("/", handlers.CreateRoom)
+	room.Post("/", middleware.ExtractToken, handlers.CreateRoom)
 	//api/v1/room/:id
-	room.Patch("/:id", handlers.UpdateRoom)
-	room.Put("/:id", handlers.UpdateRoom)
+	room.Patch("/:id", middleware.SelfAdminorMod, handlers.UpdateRoom)
+	room.Put("/:id", middleware.SelfAdminorMod, handlers.UpdateRoom)
 	//api/v1/room/:id
 	room.Get("/:id", handlers.GetRoom)
 	//api/v1/room/:id
