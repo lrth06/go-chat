@@ -14,6 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// ISSUE #13 This should be refactored such that admin is its own middleware, then self check happens in the handler
 func SelfAdminorMod(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {
