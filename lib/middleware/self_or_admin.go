@@ -10,6 +10,7 @@ import (
 	"github.com/lrth06/go-chat/lib/utils/config"
 )
 
+// HACK This should be refactored such that admin is its own middleware, then self check happens in the handler
 func SelfOrAdmin(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {
