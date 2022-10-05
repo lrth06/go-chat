@@ -10,6 +10,7 @@ import (
 	"github.com/lrth06/go-chat/lib/handlers"
 	"github.com/lrth06/go-chat/lib/handlers/auth"
 	"github.com/lrth06/go-chat/lib/handlers/users"
+	"github.com/lrth06/go-chat/lib/middleware/validation"
 	"github.com/lrth06/go-chat/lib/utils/config"
 
 	"github.com/lrth06/go-chat/lib/middleware"
@@ -86,7 +87,7 @@ func SetupRoutes(app *fiber.App) {
 		c.Set("API", "User")
 		return c.Next()
 	})
-	user.Post("/", users.CreateUser)
+	user.Post("/", validation.ValidateUser, users.CreateUser)
 	//api/v1/user/:id
 	user.Get("/:id", users.GetUser)
 	//api/v1/user/:id

@@ -25,8 +25,6 @@ func CreateUser(c *fiber.Ctx) error {
 		Password2 string `json:"password2"`
 	}
 
-
-
 	user := models.User{}
 	pass2 := passVerification{}
 	if err := c.BodyParser(&user); err != nil {

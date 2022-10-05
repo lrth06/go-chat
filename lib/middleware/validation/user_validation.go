@@ -1,10 +1,14 @@
 package validation
 
 import (
-	"github.com/lrth06/go-chat/lib/structs"
+	"fmt"
+
+	"github.com/gofiber/fiber/v2"
 )
 
-func ValidateUser(user *structs.User) error {
-// FIXME: Currently Returns NIL, SHOULD BE IMPLEMENTED ASAP
-	return nil
+func ValidateUser(c *fiber.Ctx) error {
+	fmt.Println("Validating user...")
+
+	// FIXME: Currently Returns NIL, SHOULD BE IMPLEMENTED ASAP
+	return c.Next()
 }
