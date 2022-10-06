@@ -27,7 +27,11 @@ func LoginUser(c *fiber.Ctx) error {
 	//store req.body.password in a variable
 	incoming := user.Password
 	// Find user in database and return if hashed password matches, error if not matches or not exists
-	query := bson.D{{Key: "email", Value: user.Email}}
+	// query := bson.D{{Key: "email", Value: user.Email}}
+
+	query := bson.D{{Key: "$or", Value: bson.A{bson.D{{Key: "email", Value: user.Email}}, bson.D{{Key: "name", Value: user.Email}}}}}
+
+
 	user = models.User{}
 	if err := config.ConnDB("Users").FindOne(c.Context(), query).Decode(&user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "Invalid credentials."})
