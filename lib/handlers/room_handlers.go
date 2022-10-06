@@ -11,8 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// TODO: Implement this entire file
-
 func CreateRoom(c *fiber.Ctx) error {
 	//assign to room model
 	room := models.Room{}
@@ -22,7 +20,6 @@ func CreateRoom(c *fiber.Ctx) error {
 			"msg": "Invalid request.",
 		})
 	}
-	fmt.Println(room)
 	//set Owner to the user who created the room by c.Get("id")
 	//get primitive.ObjectID from string in c.Locals("id")
 	room.Owner, _ = primitive.ObjectIDFromHex(c.Locals("id").(string))

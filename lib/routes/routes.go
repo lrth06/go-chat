@@ -23,25 +23,30 @@ func SetupRoutes(app *fiber.App) {
 		panic(err)
 	}
 	appEnv := env.AppEnv
+
 	app.Static("/", "./client/build")
+
 	imagePath := "./client/build/images"
+
 	if appEnv != "production" {
 		imagePath = "./tmp/uploads/"
 	}
-	app.Static("/images", imagePath)
-	if appEnv != "development" {
-		app.Use(middleware.Logger)
 
-		// app.Use(compress.New())
-	}
+	app.Static("/images", imagePath)
+
+	app.Use(middleware.Logger)
+
 	app.Use(cors.New())
+
 	app.Use(compress.New(compress.Config{
 		Level: compress.LevelBestSpeed,
 	}))
+
 	app.Use(recover.New(
 		recover.Config{
 			EnableStackTrace: true,
 		}))
+
 	app.Use(etag.New())
 
 	ws := app.Group("/ws", handlers.HandleUpgrade)
@@ -63,9 +68,14 @@ func SetupRoutes(app *fiber.App) {
 			"msg": "Thank you for using the go-chat api, please refer to the documentation for more information.",
 		})
 	})
+
 	//api/v1/random
 	v.Get("/random", handlers.GetRandomID)
-	v.Post("/upload", middleware.ExtractToken, handlers.HandleUpload)
+	//api/v1/random
+	v.Post("/upload",
+		middleware.ExtractToken,
+		handlers.HandleUpload,
+	)
 
 	//auth routes
 	//api/v1/auth
@@ -87,31 +97,67 @@ func SetupRoutes(app *fiber.App) {
 		c.Set("API", "User")
 		return c.Next()
 	})
-	user.Post("/", validation.ValidateUser, users.CreateUser)
+	user.Post("/",
+		validation.ValidateUser,
+		users.CreateUser,
+	)
 	//api/v1/user/:id
 	user.Get("/:id", users.GetUser)
+
 	//api/v1/user/:id
-	user.Patch("/:id", middleware.SelfOrAdmin, users.UpdateUser)
-	user.Put("/:id", middleware.SelfOrAdmin, users.UpdateUser)
+	user.Patch("/:id",
+		middleware.ExtractToken,
+		middleware.AdminCheck,
+		middleware.SelfCheck,
+		users.UpdateUser,
+	)
+	user.Put("/:id",
+		middleware.ExtractToken,
+		middleware.AdminCheck,
+		middleware.SelfCheck,
+		users.UpdateUser,
+	)
+
 	//api/v1/user/:id
-	user.Delete("/:id", middleware.SelfOrAdmin, users.DeleteUser)
+	user.Delete("/:id",
+		middleware.ExtractToken,
+		middleware.AdminCheck,
+		users.DeleteUser,
+	)
 
 	//room routes
 	//api/v1/rooms
 	v.Get("/rooms", handlers.GetRooms)
+
 	//api/v1/room/
 	room := v.Group("/room", func(c *fiber.Ctx) error {
 		c.Set("API", "Room")
 		return c.Next()
 	})
-	room.Post("/", middleware.ExtractToken, handlers.CreateRoom)
+
+	room.Post("/",
+		middleware.ExtractToken,
+		handlers.CreateRoom,
+	)
+
 	//api/v1/room/:id
-	room.Patch("/:id", middleware.SelfAdminorMod, handlers.UpdateRoom)
-	room.Put("/:id", middleware.SelfAdminorMod, handlers.UpdateRoom)
+	room.Patch("/:id",
+		middleware.AdminCheck,
+		handlers.UpdateRoom,
+	)
+	room.Put("/:id",
+		middleware.AdminCheck,
+		handlers.UpdateRoom,
+	)
+
 	//api/v1/room/:id
 	room.Get("/:id", handlers.GetRoom)
+
 	//api/v1/room/:id
-	room.Delete("/:id", handlers.DeleteRoom)
+	room.Delete("/:id",
+		middleware.AdminCheck,
+		handlers.DeleteRoom,
+	)
 
 	//404 Wildcard (redirects to client which will route with react router)
 	app.Get("/*", func(c *fiber.Ctx) error {
