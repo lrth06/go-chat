@@ -16,4 +16,5 @@ type RoomSettings struct {
 	Private    bool                 `bson:"private,omitempty"`
 	Background string               `bson:"background,omitempty"`
 	Moderators []primitive.ObjectID `bson:"moderators,omitempty"`
+	BannedUsers []primitive.ObjectID `bson:"banned_users,omitempty"`
 }

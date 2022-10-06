@@ -1,4 +1,4 @@
-package middleware
+package permissions
 
 import (
 	"github.com/gofiber/fiber/v2"

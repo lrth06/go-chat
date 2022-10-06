@@ -1,4 +1,4 @@
-package middleware
+package logging
 
 import (
 	"github.com/gofiber/fiber/v2"
