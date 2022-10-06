@@ -13,6 +13,7 @@ import (
 )
 
 func UpdateUser(c *fiber.Ctx) error {
+
 	env, err := config.GetConfig()
 	if err != nil {
 		return c.SendStatus(400)

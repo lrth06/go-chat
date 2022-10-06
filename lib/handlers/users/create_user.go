@@ -39,9 +39,7 @@ func CreateUser(c *fiber.Ctx) error {
 	if user.Name == "" || user.Password == "" || user.Email == "" {
 		return c.Status(400).JSON(fiber.Map{"msg": "Username, password and email are required!"})
 	}
-	// [ ] Validate HERE
-
-
+	// [x] Validate HERE
 
 	if user.Password != pass2.Password2 {
 		return c.Status(400).JSON(fiber.Map{

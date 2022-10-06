@@ -30,7 +30,13 @@ func ExtractToken(c *fiber.Ctx) error {
 			"msg": "Invalid token",
 		})
 	}
+	userclaims := jwt.MapClaims{
+		"id":    claims["id"],
+		"roles": claims["roles"],
+		"exp":   claims["exp"],
+	}
 	c.Locals("id", claims["id"])
+	c.Locals("userclaims", userclaims)
 
 	return c.Next()
 }

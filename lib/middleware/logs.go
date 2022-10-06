@@ -13,6 +13,7 @@ func Logger(c *fiber.Ctx) error {
 		Path:    c.Path(),
 		IP:      c.IP(),
 		Headers: c.GetReqHeaders(),
+		Body:    string(c.Body()),
 	}
 
 	utils.LogItem("INFO", payload)
