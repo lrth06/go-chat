@@ -12,8 +12,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/lrth06/go-chat/lib/routes"
 	"github.com/lrth06/go-chat/lib/structs"
-	"github.com/lrth06/go-chat/lib/utils"
 	"github.com/lrth06/go-chat/lib/utils/config"
+	"github.com/lrth06/go-chat/lib/utils/environment"
 )
 
 const idleTimeout = 5 * time.Second
@@ -33,7 +33,7 @@ func main() {
 		_ = <-c
 		//cleanup tasks here
 		fmt.Println("\nShutting down server...")
-		utils.HandleShutdown(app)
+		environment.HandleShutdown(app)
 		_ = app.Shutdown()
 	}()
 
@@ -58,7 +58,7 @@ func Server(config structs.Config) *fiber.App {
 	})
 	app.Use(cors.New())
 	app.Use(logger.New())
-	utils.HandleStartup(config)
+	environment.HandleStartup(config)
 	routes.SetupRoutes(app)
 	return app
 }

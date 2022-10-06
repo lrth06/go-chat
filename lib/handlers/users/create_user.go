@@ -35,11 +35,6 @@ func CreateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(&pass2); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "Password confirmation is required!"})
 	}
-	// reject if required fields are empty
-	if user.Name == "" || user.Password == "" || user.Email == "" {
-		return c.Status(400).JSON(fiber.Map{"msg": "Username, password and email are required!"})
-	}
-	// [x] Validate HERE
 
 	if user.Password != pass2.Password2 {
 		return c.Status(400).JSON(fiber.Map{

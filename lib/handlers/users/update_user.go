@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,6 +14,13 @@ import (
 )
 
 func UpdateUser(c *fiber.Ctx) error {
+
+	fmt.Println("Self:",c.Locals("self"),"Admin:", c.Locals("admin"))
+	if c.Locals("admin") == false && c.Locals("self") == false {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"msg": "Unauthorized",
+		})
+	}
 
 	env, err := config.GetConfig()
 	if err != nil {

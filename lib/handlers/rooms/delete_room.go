@@ -22,8 +22,6 @@ func DeleteRoom(c *fiber.Ctx) error {
 	if _, err := config.ConnDB("Rooms").DeleteOne(c.Context(), query); err != nil {
 		return c.Status(400).JSON(fiber.Map{"msg": "Room not deleted."})
 	}
-	// TODO: fix this (convert to production delete)
-	//delete users images directory
 	return c.JSON(fiber.Map{
 		"msg": "Room deleted successfully!",
 	})

@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,6 +12,13 @@ import (
 )
 
 func DeleteUser(c *fiber.Ctx) error {
+	fmt.Println("Self:",c.Locals("self"),"Admin:", c.Locals("admin"))
+	if c.Locals("admin") == false && c.Locals("self") == false {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"msg": "Unauthorized",
+		})
+	}
+
 	idParam := c.Params("id")
 	userId, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {

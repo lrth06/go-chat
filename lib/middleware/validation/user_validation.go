@@ -23,11 +23,9 @@ func ValidateUser(c *fiber.Ctx) error {
 	c.BodyParser(&body)
 
 	err := Validator.Struct(body)
-	// HACK: This is a hack to get the validation to work, need more concise errors
+	// [ ] need more concise errors
 	errMsg :=""
 	if err != nil {
-			//build human readable error message
-		//retrieve the first error
 		errs := err.(validator.ValidationErrors)
 		errMsg = fmt.Sprintf("Unble to validate %s", errs[0].Field())
 		return c.Status(422).JSON(fiber.Map{

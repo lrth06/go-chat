@@ -8,21 +8,31 @@ import (
 )
 
 // take route group in and return a new route group
-func RoomRoutes(room fiber.Router) {
+func RegisterRoomRoutes(v fiber.Router) {
+	v.Get("/rooms", rooms.GetRooms)
+
+	room := v.Group("/room", func(c *fiber.Ctx) error {
+		c.Set("API", "Room")
+		// RoomRoutes(v,c)
+
+		return c.Next()
+	})
 
 	room.Post("/",
 		token.ExtractToken,
-		rooms.CreateRoom,
+			rooms.CreateRoom,
 	)
 
 	//api/v1/room/:id
 	room.Patch("/:id",
+		token.ExtractToken,
 		permissions.AdminCheck,
-		rooms.UpdateRoom,
+			rooms.UpdateRoom,
 	)
 	room.Put("/:id",
+		token.ExtractToken,
 		permissions.AdminCheck,
-		rooms.UpdateRoom,
+			rooms.UpdateRoom,
 	)
 
 	//api/v1/room/:id
@@ -31,7 +41,7 @@ func RoomRoutes(room fiber.Router) {
 	//api/v1/room/:id
 	room.Delete("/:id",
 		permissions.AdminCheck,
-		rooms.DeleteRoom,
+			rooms.DeleteRoom,
 	)
 
 }
