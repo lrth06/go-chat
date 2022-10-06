@@ -19,20 +19,20 @@ var Validator = validator.New()
 
 func ValidateUser(c *fiber.Ctx) error {
 	fmt.Println("Validating user...")
-	var errors []*IError
 	body := new(structs.User)
 	c.BodyParser(&body)
 
 	err := Validator.Struct(body)
+	// HACK: This is a hack to get the validation to work, need more concise errors
+	errMsg :=""
 	if err != nil {
-		for _, err := range err.(validator.ValidationErrors) {
-			var el IError
-			el.Field = err.Field()
-			el.Tag = err.Tag()
-			el.Value = err.Param()
-			errors = append(errors, &el)
-		}
-		return c.Status(fiber.StatusBadRequest).JSON(errors)
+			//build human readable error message
+		//retrieve the first error
+		errs := err.(validator.ValidationErrors)
+		errMsg = fmt.Sprintf("Unble to validate %s", errs[0].Field())
+		return c.Status(422).JSON(fiber.Map{
+			"msg": errMsg,
+		})
 	}
 	return c.Next()
 }

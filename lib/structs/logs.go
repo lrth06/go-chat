@@ -6,13 +6,7 @@ import (
 	"github.com/segmentio/encoding/json"
 )
 
-type Config struct {
-	Port        string `json:"port"`
-	AppEnv      string `json:"app_env"`
-	MongoURI    string `json:"mongo_uri"`
-	DBName      string `json:"db_name"`
-	TokenSecret string `json:"token_secret"`
-}
+
 type LogItem struct {
 	Timestamp string  `json:"timestamp"`
 	ID        string  `json:"id"`
@@ -53,18 +47,4 @@ func (l LogItem) String() string {
 		fmt.Println(err)
 	}
 	return string(jsonString)
-}
-
-type User struct {
-	ID     any           `json:"_id"`
-	Name   string        `json:"username"`
-	Email  string        `json:"email" validate:"required,email"`
-	Avatar string        `json:"avatar" validate:"omitempty,url"`
-	Token  string        `json:"token"`
-	Roles  []interface{} `json:"roles"`
-}
-
-type Room struct {
-	Id    string `json:"id"`
-	Users []User `json:"users"`
 }
