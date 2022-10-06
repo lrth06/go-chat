@@ -27,7 +27,7 @@ func ValidateUser(c *fiber.Ctx) error {
 	errMsg :=""
 	if err != nil {
 		errs := err.(validator.ValidationErrors)
-		errMsg = fmt.Sprintf("Unble to validate %s", errs[0].Field())
+		errMsg = fmt.Sprintf("Unable to validate %s", errs[0].Field())
 		return c.Status(422).JSON(fiber.Map{
 			"msg": errMsg,
 		})
