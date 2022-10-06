@@ -25,6 +25,7 @@ function App() {
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
   useEffect(() => {
     if (!token || token == undefined) {
+      localStorage.removeItem('token');
       return;
     }
     const base64Url = token.split('.')[1];

@@ -24,24 +24,24 @@ func UpdateUser(c *fiber.Ctx) error {
 
 	env, err := config.GetConfig()
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	secret := env.TokenSecret
 	idParam := c.Params("id")
 	id, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	user := models.User{}
 	if err := c.BodyParser(&user); err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	//find and update in db, then return new jwt token with updated user information
 	query := bson.D{{Key: "_id", Value: id}}
 	update := bson.D{{Key: "$set", Value: user}}
 	opts := options.FindOneAndUpdate().SetReturnDocument(options.After)
 	if err := config.ConnDB("Users").FindOneAndUpdate(c.Context(), query, update, opts).Decode(&user); err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	jwtClaims := jwt.MapClaims{
 		"id":     user.ID,
@@ -53,7 +53,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	}
 	jwt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwtClaims).SignedString([]byte(secret))
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	return c.JSON(fiber.Map{
 		"msg":   "User updated successfully!",

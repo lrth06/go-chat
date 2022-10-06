@@ -20,7 +20,7 @@ func DeleteRoom(c *fiber.Ctx) error {
 		return c.Status(404).JSON(fiber.Map{"msg": "Room not found."})
 	}
 	if _, err := config.ConnDB("Rooms").DeleteOne(c.Context(), query); err != nil {
-		return c.Status(400).JSON(fiber.Map{"msg": "Room not deleted."})
+		return c.Status(500).JSON(fiber.Map{"msg": "Room not deleted."})
 	}
 	return c.JSON(fiber.Map{
 		"msg": "Room deleted successfully!",

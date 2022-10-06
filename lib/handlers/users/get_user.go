@@ -22,7 +22,7 @@ func GetUser(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 	userId, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	query := bson.D{{Key: "_id", Value: userId}}
 	opts := options.FindOne().SetProjection(bson.D{{Key: "password", Value: 0}, {Key: "token", Value: 0}})

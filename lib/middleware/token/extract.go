@@ -13,7 +13,7 @@ func ExtractToken(c *fiber.Ctx) error {
 	fmt.Println("Extracting Token")
 	env, err := config.GetConfig()
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	secret := env.TokenSecret
 	token := c.Get("Authorization")

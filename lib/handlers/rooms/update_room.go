@@ -13,17 +13,23 @@ func UpdateRoom(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 	id, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(400).JSON(fiber.Map{
+			"msg": "Invalid room ID",
+		})
 	}
 	room := models.Room{}
 	if err := c.BodyParser(&room); err != nil {
-		return c.SendStatus(400)
+		return c.Status(400).JSON(fiber.Map{
+			"msg": "Invalid room data",
+		})
 	}
 	query := bson.D{{Key: "_id", Value: id}}
 	update := bson.D{{Key: "$set", Value: room}}
 	opts := options.FindOneAndUpdate().SetReturnDocument(options.After)
 	if err := config.ConnDB("Rooms").FindOneAndUpdate(c.Context(), query, update, opts).Decode(&room); err != nil {
-		return c.SendStatus(400)
+		return c.Status(404).JSON(fiber.Map{
+			"msg": "Room not found",
+		})
 	}
 
 	return c.JSON(fiber.Map{

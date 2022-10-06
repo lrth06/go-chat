@@ -15,7 +15,9 @@ func LoginUser(c *fiber.Ctx) error {
 	// Get user from request body
 	env, err := config.GetConfig()
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{
+			"msg":"Server error",
+		})
 	}
 	secret := env.TokenSecret
 	user := models.User{}
@@ -45,7 +47,7 @@ func LoginUser(c *fiber.Ctx) error {
 	}
 	jwt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwtClaims).SignedString([]byte(secret))
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	return c.JSON(fiber.Map{
 		"msg":   "User logged in successfully!",

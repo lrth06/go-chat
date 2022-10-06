@@ -13,10 +13,12 @@ import (
 
 func DeleteUser(c *fiber.Ctx) error {
 	fmt.Println("Self:",c.Locals("self"),"Admin:", c.Locals("admin"))
-	if c.Locals("admin") == false && c.Locals("self") == false {
-		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"msg": "Unauthorized",
-		})
+	if c.Locals("admin") != true {
+		if c.Locals("self") != true {
+			return c.Status(401).JSON(fiber.Map{
+				"msg": "Unauthorized",
+			})
+		}
 	}
 
 	idParam := c.Params("id")

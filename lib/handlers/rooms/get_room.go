@@ -15,14 +15,16 @@ func GetRoom(c *fiber.Ctx) error {
 	idParam := c.Params("id")
 	roomId, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(400).JSON(fiber.Map{
+			"msg": "Invalid room ID",
+		})
 	}
 	opts := options.FindOne().SetProjection(bson.D{{Key: "password", Value: 0}})
 	query := bson.D{{Key: "_id", Value: roomId}}
 	room := models.Room{}
 	if err := config.ConnDB("Rooms").FindOne(c.Context(), query, opts).Decode(&room); err != nil {
 		fmt.Println(err)
-		return c.Status(404).SendString("room not found!")
+		return c.Status(404).JSON(fiber.Map{"msg": "Room not found."})
 	}
 	return c.JSON(room)
 }

@@ -17,7 +17,7 @@ import (
 func CreateUser(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	secret := env.TokenSecret
 	//temporary struct to store incoming confirmation password
@@ -55,7 +55,7 @@ func CreateUser(c *fiber.Ctx) error {
 	}
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	user.Password = string(hashedPassword)
 	user.ID = primitive.NewObjectID()
@@ -77,7 +77,7 @@ func CreateUser(c *fiber.Ctx) error {
 
 	jwt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwtClaims).SignedString([]byte(secret))
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	return c.JSON(fiber.Map{
 		"msg":   "User created successfully!",

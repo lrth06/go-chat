@@ -47,6 +47,7 @@ func RegisterUserRoutes(v fiber.Router) {
 	//api/v1/user/:id
 	user.Delete("/:id",
 		token.ExtractToken,
+		permissions.SelfCheck,
 		permissions.AdminCheck,
 			users.DeleteUser,
 )

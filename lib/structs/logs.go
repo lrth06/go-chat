@@ -20,7 +20,7 @@ type Payload struct {
 	Path    string            `json:"path"`
 	IP      string            `json:"ip"`
 	Headers map[string]string `json:"headers"`
-	Body    string            `json:"body"`
+	Body    interface{}            `json:"body"`
 }
 
 func (p Payload) String() string {

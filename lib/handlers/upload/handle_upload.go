@@ -10,7 +10,7 @@ import (
 func HandleUpload(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {
-		return c.SendStatus(400)
+		return c.Status(500).JSON(fiber.Map{"msg": "Server error."})
 	}
 	appEnv := env.AppEnv
 	//empty array for file urls
