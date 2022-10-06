@@ -1,4 +1,4 @@
-package middleware
+package permissions
 
 import (
 	"encoding/base64"

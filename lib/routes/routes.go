@@ -9,11 +9,12 @@ import (
 	"github.com/gofiber/websocket/v2"
 	"github.com/lrth06/go-chat/lib/handlers"
 	"github.com/lrth06/go-chat/lib/handlers/auth"
+	"github.com/lrth06/go-chat/lib/handlers/rooms"
+	"github.com/lrth06/go-chat/lib/handlers/upload"
 	"github.com/lrth06/go-chat/lib/handlers/users"
-	"github.com/lrth06/go-chat/lib/middleware/validation"
+	"github.com/lrth06/go-chat/lib/middleware/logging"
+	"github.com/lrth06/go-chat/lib/middleware/token"
 	"github.com/lrth06/go-chat/lib/utils/config"
-
-	"github.com/lrth06/go-chat/lib/middleware"
 )
 
 func SetupRoutes(app *fiber.App) {
@@ -34,7 +35,7 @@ func SetupRoutes(app *fiber.App) {
 
 	app.Static("/images", imagePath)
 
-	app.Use(middleware.Logger)
+	app.Use(logging.Logger)
 
 	app.Use(cors.New())
 
@@ -73,8 +74,8 @@ func SetupRoutes(app *fiber.App) {
 	v.Get("/random", handlers.GetRandomID)
 	//api/v1/random
 	v.Post("/upload",
-		middleware.ExtractToken,
-		handlers.HandleUpload,
+		token.ExtractToken,
+		upload.HandleUpload,
 	)
 
 	//auth routes
@@ -97,67 +98,23 @@ func SetupRoutes(app *fiber.App) {
 		c.Set("API", "User")
 		return c.Next()
 	})
-	user.Post("/",
-		validation.ValidateUser,
-		users.CreateUser,
-	)
-	//api/v1/user/:id
-	user.Get("/:id", users.GetUser)
+	UserRoutes(user)
 
-	//api/v1/user/:id
-	user.Patch("/:id",
-		middleware.ExtractToken,
-		middleware.AdminCheck,
-		middleware.SelfCheck,
-		users.UpdateUser,
-	)
-	user.Put("/:id",
-		middleware.ExtractToken,
-		middleware.AdminCheck,
-		middleware.SelfCheck,
-		users.UpdateUser,
-	)
+	// //room routes
+	// //api/v1/rooms
+	v.Get("/rooms", rooms.GetRooms)
 
-	//api/v1/user/:id
-	user.Delete("/:id",
-		middleware.ExtractToken,
-		middleware.AdminCheck,
-		users.DeleteUser,
-	)
-
-	//room routes
-	//api/v1/rooms
-	v.Get("/rooms", handlers.GetRooms)
-
-	//api/v1/room/
+	// //api/v1/room/
 	room := v.Group("/room", func(c *fiber.Ctx) error {
 		c.Set("API", "Room")
+		// RoomRoutes(v,c)
+
 		return c.Next()
 	})
 
-	room.Post("/",
-		middleware.ExtractToken,
-		handlers.CreateRoom,
-	)
+		//use RoomRoutes subrouter
+	RoomRoutes(room)
 
-	//api/v1/room/:id
-	room.Patch("/:id",
-		middleware.AdminCheck,
-		handlers.UpdateRoom,
-	)
-	room.Put("/:id",
-		middleware.AdminCheck,
-		handlers.UpdateRoom,
-	)
-
-	//api/v1/room/:id
-	room.Get("/:id", handlers.GetRoom)
-
-	//api/v1/room/:id
-	room.Delete("/:id",
-		middleware.AdminCheck,
-		handlers.DeleteRoom,
-	)
 
 	//404 Wildcard (redirects to client which will route with react router)
 	app.Get("/*", func(c *fiber.Ctx) error {
