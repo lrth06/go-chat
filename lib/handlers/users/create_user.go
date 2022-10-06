@@ -26,6 +26,7 @@ func CreateUser(c *fiber.Ctx) error {
 	}
 
 	user := models.User{}
+
 	pass2 := passVerification{}
 	if err := c.BodyParser(&user); err != nil {
 		fmt.Println(err)
@@ -39,6 +40,9 @@ func CreateUser(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"msg": "Username, password and email are required!"})
 	}
 	// [ ] Validate HERE
+
+
+
 	if user.Password != pass2.Password2 {
 		return c.Status(400).JSON(fiber.Map{
 			"msg": "Passwords do not match!",
