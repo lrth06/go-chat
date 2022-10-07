@@ -5,6 +5,7 @@ import { Header, Footer } from './components/Layout';
 import RoomIndex from './views/rooms/Directory';
 import Room from './views/rooms/Room';
 import Profile from './views/user/Profile';
+import EditProfile from './views/user/EditProfile';
 import Login from './views/auth/Login';
 import Register from './views/auth/Register';
 import RoomEditor from './views/rooms/Editor';
@@ -50,12 +51,13 @@ function App() {
             </Route>
             <Route path="/users">
               <Route path=":id" element={<Profile />} />
+              <Route path=":id/edit" element={<EditProfile />} />
             </Route>
             <Route path="/room">
               <Route index element={<RoomIndex />} />
               <Route path="new" element={<RoomEditor />} />
               <Route path=":id" element={<Room />}>
-                <Route path="edit" element={<RoomEditor />} />
+                <Route path=":id/edit" element={<RoomEditor />} />
               </Route>
             </Route>
             <Route path="/blog">

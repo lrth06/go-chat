@@ -13,8 +13,6 @@ func RegisterRoomRoutes(v fiber.Router) {
 
 	room := v.Group("/room", func(c *fiber.Ctx) error {
 		c.Set("API", "Room")
-		// RoomRoutes(v,c)
-
 		return c.Next()
 	})
 

@@ -20,6 +20,9 @@ deploy: purge build-api build-client run-api
 
 deploy-api: build-api run-api
 
+hotswap:
+	cd client && echo "BUILD_PATH=dist" > .env && yarn build && cp -r dist/* build && rm -rf dist && rm -rf .env
+
 kill:
 	# cat ./tmp/server/pid | xargs kill -9
 	npx kill-port 3000
