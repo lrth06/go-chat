@@ -5,7 +5,9 @@ import { UserContext } from '../../context/UserContext';
 import { useParams } from 'react-router-dom';
 import parseJwt from '../../utils/parseJwt';
 import UserList from '../../components/chat/UserList';
+import {useNavigate} from 'react-router-dom'
 export default function Room() {
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
   const [messages, setMessages] = useState([]);
@@ -18,7 +20,8 @@ export default function Room() {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = '/auth/login';
+      navigate('/');
+
     }
   }, [token]);
 

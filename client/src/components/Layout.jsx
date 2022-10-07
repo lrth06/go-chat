@@ -1,7 +1,9 @@
 import { UserContext } from '../context/UserContext';
 import { useEffect, useRef, useState, useContext } from 'react';
 import UserDropdown from './chat/UserDropdown';
+import {useNavigate} from 'react-router-dom';
 export function Header() {
+  const navigate = useNavigate();
   const [hidden, setHidden] = useState(true);
   const menuRef = useRef(null);
   const { user, setUser } = useContext(UserContext);
@@ -82,10 +84,10 @@ export function Header() {
         ref={menuRef}
         className={`mobile-menu md:hidden ${hidden == true && 'hidden'}`}
       >
-        <a href="/room" className="block py-2 px-4 text-sm hover:bg-gray-200">
+        <a onClick={()=>navigate("/rooms")} className="block py-2 px-4 text-sm hover:bg-gray-200">
           Rooms
         </a>
-        <a href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
+        <a onClick={()=>navigate("/blog")} className="block py-2 px-4 text-sm hover:bg-gray-200">
           Blog
         </a>
       </div>

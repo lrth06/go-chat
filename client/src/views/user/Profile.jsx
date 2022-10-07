@@ -11,7 +11,8 @@ export default function Profile() {
   function logout() {
     return Logout(localStorage.getItem('token')).then(() => {
       localStorage.removeItem('token');
-      window.location.href = '/';
+                navigate('/');
+
     });
   }
   function deleteUser(){
@@ -25,7 +26,8 @@ export default function Profile() {
       localStorage.removeItem('token');
       SuccessAlert('Account deleted');
       setTimeout(() => {
-        window.location.href = '/';
+                  navigate('/');
+
       }, 5000);
     }catch(e){
       console.log(e);
@@ -36,7 +38,8 @@ export default function Profile() {
 
   //redirect to home if page is accessed without a token
   if (!localStorage.getItem('token')) {
-    window.location.href = '/';
+              navigate('/');
+
   }
 
   return (

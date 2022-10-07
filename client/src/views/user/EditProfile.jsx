@@ -3,28 +3,35 @@ import { UserContext } from "../../context/UserContext";
 import { useForm } from "../../hooks/useForm";
 export default function EditProfile() {
   const { user, setUser } = useContext(UserContext);
-  console.log(user)
-  const {values,handleChange} = useForm({
-    username: "",
-    email: "",
+  const [values,handleChange] = useForm({
+    name: user?.name,
+    email: user?.email,
     password: '',
     password2: '',
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(values)
+  };
+
+
   return (
-    <div className="container mx-auto min-h-full p-5">
-      <h1 className="text-3xl font-bold">Edit Profile</h1>
- {/* form fields for email, username, and password */}
-    <form className="flex flex-col">
-    <div className="mb-6 flex items-center text-lg md:mb-8">
+    // return div with tailwind classes
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center w-1/2 h-1/2 bg-gray-200 rounded-lg">
+        <h1 className="text-3xl font-bold">Edit Profile</h1>
+        <form onSubmit={(e)=>{handleSubmit(e)}} className="flex flex-col items-center justify-center w-1/2 h-1/2">
+        <div className="mb-6 flex items-center text-lg md:mb-8">
             <svg className="absolute ml-3" width="24" viewBox="0 0 24 24">
               <path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" />
             </svg>
             <input
               className="w-full bg-gray-200 py-2 pl-12 focus:outline-none md:py-4"
               type="text"
-              name="username"
-              placeholder="username"
-              value={values.username}
+              name="name"
+              placeholder="name"
+              value={values.name}
               onChange={handleChange}
             />
           </div>
@@ -56,7 +63,9 @@ export default function EditProfile() {
             />
             </div>
       <button type="submit"  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Submit</button>
-    </form>
+          </form>
+      </div>
     </div>
+
   );
 }

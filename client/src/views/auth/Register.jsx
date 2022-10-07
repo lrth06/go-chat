@@ -3,8 +3,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import {errorAlert} from '../../components/alert/error';
 import {SuccessAlert} from '../../components/alert/success';
-
+import {useNavigate} from 'react-router-dom';
 export default function Register() {
+  const navigate = useNavigate();
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
   const [values, handleChange] = useForm({
@@ -24,7 +25,8 @@ export default function Register() {
         setError(null);
         localStorage.setItem('token', res.data.token);
         setTimeout(() => {
-          window.location.href = '/';
+          navigate('/');
+
         }, 2000);
       }
     }catch(e){
