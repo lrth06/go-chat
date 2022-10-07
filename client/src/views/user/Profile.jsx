@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext,useEffect, useState } from 'react';
+import { UserContext } from "../../context/UserContext";
 import Logout from '../../utils/logout';
 import parseJwt from '../../utils/parseJwt';
 import axios from 'axios';
 import { SuccessAlert } from '../../components/alert/success';
+import {useNavigate} from 'react-router-dom';
 export default function Profile() {
-  const [user, setUser] = useState();
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   function logout() {
     return Logout(localStorage.getItem('token')).then(() => {
       localStorage.removeItem('token');
@@ -36,11 +39,6 @@ export default function Profile() {
     window.location.href = '/';
   }
 
-  useEffect(() => {
-    //get user data from token
-    const token = parseJwt(localStorage.getItem('token'));
-    setUser(token);
-  }, []);
   return (
     <div className="container  mx-auto min-h-full p-5">
       <div className="flex flex-col items-center justify-center">
@@ -54,6 +52,7 @@ export default function Profile() {
           Logout
         </button>
         <button
+          onClick={() => navigate(`/users/${user?.id}/edit`)}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
             Edit Profile
             </button>

@@ -3,6 +3,7 @@ import { UserContext } from "../../context/UserContext";
 import { useForm } from "../../hooks/useForm";
 export default function EditProfile() {
   const { user, setUser } = useContext(UserContext);
+  console.log(user)
   const {values,handleChange} = useForm({
     username: "",
     email: "",

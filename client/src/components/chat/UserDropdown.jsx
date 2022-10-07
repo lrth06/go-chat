@@ -4,8 +4,8 @@ export default function UserDropdown({ user }) {
       <div className="hidden items-center space-x-1 md:flex">
         <a
           href={`/users/${user.id}`}
-          target="_blank"
-          rel="noopener noreferrer"
+          // target="_blank"
+          // rel="noopener noreferrer"
           className="py-5 px-3 text-gray-700 hover:text-gray-900"
         >
           <img
