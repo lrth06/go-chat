@@ -10,6 +10,7 @@ import (
 )
 
 func UpdateRoom(c *fiber.Ctx) error {
+
 	idParam := c.Params("id")
 	id, err := primitive.ObjectIDFromHex(idParam)
 	if err != nil {
@@ -23,6 +24,13 @@ func UpdateRoom(c *fiber.Ctx) error {
 			"msg": "Invalid room data",
 		})
 	}
+
+	//check if c.Locals("userclaims") id is the owner of the room or in settings.moderators
+
+	// [ ] check if room exists
+	// [ ] check if user is owner or moderator of room
+
+
 	query := bson.D{{Key: "_id", Value: id}}
 	update := bson.D{{Key: "$set", Value: room}}
 	opts := options.FindOneAndUpdate().SetReturnDocument(options.After)
