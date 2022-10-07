@@ -11,7 +11,6 @@ import (
 )
 
 func RegisterMiddlewares(app *fiber.App) {
-	// app.Use(middlewares(app))
 	env, err := config.GetConfig()
 	if err != nil {
 		panic(err)
@@ -38,7 +37,7 @@ func RegisterMiddlewares(app *fiber.App) {
 
 	app.Use(recover.New(
 		recover.Config{
-			EnableStackTrace: true,
+			EnableStackTrace: env.AppEnv != "production",
 		}))
 
 	app.Use(etag.New())

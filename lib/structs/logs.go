@@ -6,7 +6,6 @@ import (
 	"github.com/segmentio/encoding/json"
 )
 
-
 type LogItem struct {
 	Timestamp string  `json:"timestamp"`
 	ID        string  `json:"id"`
@@ -20,7 +19,7 @@ type Payload struct {
 	Path    string            `json:"path"`
 	IP      string            `json:"ip"`
 	Headers map[string]string `json:"headers"`
-	Body    interface{}            `json:"body"`
+	Body    interface{}       `json:"body"`
 }
 
 func (p Payload) String() string {

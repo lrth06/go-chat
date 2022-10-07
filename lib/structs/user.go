@@ -1,4 +1,5 @@
 package structs
+
 type User struct {
 	ID     any           `json:"_id"`
 	Name   string        `json:"username"`

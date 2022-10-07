@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/lrth06/go-chat/lib/utils/config"
 )
+
 func HandleUpload(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {

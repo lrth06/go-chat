@@ -12,7 +12,7 @@ import (
 )
 
 func DeleteUser(c *fiber.Ctx) error {
-	fmt.Println("Self:",c.Locals("self"),"Admin:", c.Locals("admin"))
+	fmt.Println("Self:", c.Locals("self"), "Admin:", c.Locals("admin"))
 	if c.Locals("admin") != true {
 		if c.Locals("self") != true {
 			return c.Status(401).JSON(fiber.Map{

@@ -30,7 +30,6 @@ func UpdateRoom(c *fiber.Ctx) error {
 	// [ ] check if room exists
 	// [ ] check if user is owner or moderator of room
 
-
 	query := bson.D{{Key: "_id", Value: id}}
 	update := bson.D{{Key: "$set", Value: room}}
 	opts := options.FindOneAndUpdate().SetReturnDocument(options.After)

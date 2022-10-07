@@ -17,22 +17,25 @@ func RegisterRoomRoutes(v fiber.Router) {
 	})
 
 	room.Post("/",
+		permissions.RequireAuth,
 		token.ExtractToken,
-			rooms.CreateRoom,
+		rooms.CreateRoom,
 	)
 
 	//api/v1/room/:id
 	room.Patch("/:id",
+		permissions.RequireAuth,
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.OwnerModerator,
-			rooms.UpdateRoom,
+		rooms.UpdateRoom,
 	)
 	room.Put("/:id",
+		permissions.RequireAuth,
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.OwnerModerator,
-			rooms.UpdateRoom,
+		rooms.UpdateRoom,
 	)
 
 	//api/v1/room/:id
@@ -40,10 +43,11 @@ func RegisterRoomRoutes(v fiber.Router) {
 
 	//api/v1/room/:id
 	room.Delete("/:id",
+		permissions.RequireAuth,
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.OwnerModerator,
-			rooms.DeleteRoom,
+		rooms.DeleteRoom,
 	)
 
 }

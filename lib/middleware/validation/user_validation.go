@@ -24,7 +24,7 @@ func ValidateUser(c *fiber.Ctx) error {
 
 	err := Validator.Struct(body)
 	// [ ] need more concise errors
-	errMsg :=""
+	errMsg := ""
 	if err != nil {
 		errs := err.(validator.ValidationErrors)
 		errMsg = fmt.Sprintf("Unable to validate %s", errs[0].Field())

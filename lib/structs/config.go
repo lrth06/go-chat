@@ -1,6 +1,5 @@
 package structs
 
-
 type Config struct {
 	Port        string `json:"port"`
 	AppEnv      string `json:"app_env"`

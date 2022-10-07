@@ -15,7 +15,7 @@ import (
 
 func UpdateUser(c *fiber.Ctx) error {
 
-	fmt.Println("Self:",c.Locals("self"),"Admin:", c.Locals("admin"))
+	fmt.Println("Self:", c.Locals("self"), "Admin:", c.Locals("admin"))
 	if c.Locals("admin") == false && c.Locals("self") == false {
 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"msg": "Unauthorized",

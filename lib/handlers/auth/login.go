@@ -16,7 +16,7 @@ func LoginUser(c *fiber.Ctx) error {
 	env, err := config.GetConfig()
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
-			"msg":"Server error",
+			"msg": "Server error",
 		})
 	}
 	secret := env.TokenSecret
@@ -30,7 +30,6 @@ func LoginUser(c *fiber.Ctx) error {
 	// query := bson.D{{Key: "email", Value: user.Email}}
 
 	query := bson.D{{Key: "$or", Value: bson.A{bson.D{{Key: "email", Value: user.Email}}, bson.D{{Key: "name", Value: user.Email}}}}}
-
 
 	user = models.User{}
 	if err := config.ConnDB("Users").FindOne(c.Context(), query).Decode(&user); err != nil {

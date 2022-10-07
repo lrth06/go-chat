@@ -5,8 +5,9 @@ import (
 )
 
 func RequireAuth(c *fiber.Ctx) error {
-	if c.Get("Authorization") == "" {
-		return c.Status(401).JSON(fiber.Map{
+	token := c.Get("Authorization")
+	if token == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"msg": "Unauthorized",
 		})
 	}
