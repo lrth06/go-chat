@@ -5,8 +5,8 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/etag"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/lrth06/go-chat/lib/middleware/logging"
 	"github.com/lrth06/go-chat/lib/utils/config"
 )
 
@@ -27,7 +27,7 @@ func RegisterMiddlewares(app *fiber.App) {
 
 	app.Static("/images", imagePath)
 
-	app.Use(logging.Logger)
+	// app.Use(logging.Logger)
 
 	app.Use(cors.New())
 
@@ -41,4 +41,9 @@ func RegisterMiddlewares(app *fiber.App) {
 		}))
 
 	app.Use(etag.New())
+	app.Use(func(c *fiber.Ctx) error {
+		c.Locals("uuid", c.Get("uuid"))
+		return c.Next()
+	})
+	app.Use(logger.New())
 }

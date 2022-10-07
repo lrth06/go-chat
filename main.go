@@ -8,8 +8,6 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/lrth06/go-chat/lib/routes"
 	"github.com/lrth06/go-chat/lib/structs"
 	"github.com/lrth06/go-chat/lib/utils/config"
@@ -52,12 +50,7 @@ func Server(config structs.Config) *fiber.App {
 		DisableStartupMessage: config.AppEnv == "production",
 	})
 	// app.Server().MaxConnsPerIP = 1
-	app.Use(func(c *fiber.Ctx) error {
-		c.Locals("uuid", c.Get("uuid"))
-		return c.Next()
-	})
-	app.Use(cors.New())
-	app.Use(logger.New())
+
 	environment.HandleStartup(config)
 	routes.SetupRoutes(app)
 	return app
