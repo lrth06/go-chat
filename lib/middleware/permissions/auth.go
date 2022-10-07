@@ -4,20 +4,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Auth(c *fiber.Ctx) error {
-
-	return c.Next()
-}
-
 func RequireAuth(c *fiber.Ctx) error {
-	reject := func(c *fiber.Ctx) error {
-		// c.SendFile("client/build/index.html")
-		c.Status(401).Send([]byte("Unauthorized"))
-
-		return nil
-	}
 	if c.Get("Authorization") == "" {
-		return reject(c)
+		return c.Status(401).JSON(fiber.Map{
+			"msg": "Unauthorized",
+		})
 	}
 	return c.Next()
 }

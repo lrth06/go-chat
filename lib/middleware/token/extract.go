@@ -18,7 +18,7 @@ func ExtractToken(c *fiber.Ctx) error {
 	secret := env.TokenSecret
 	token := c.Get("Authorization")
 	if token == "" {
-		return c.Status(401).SendString("Unauthorized")
+		fmt.Println("No token found")
 	}
 	token = strings.Split(token, " ")[1]
 	claims := jwt.MapClaims{}

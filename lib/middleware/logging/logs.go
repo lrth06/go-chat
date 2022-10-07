@@ -16,22 +16,22 @@ import (
 
 func Logger(c *fiber.Ctx) error {
 	//beautify the request body
-	var body interface{}
-	err := json.Unmarshal(c.Body(), &body)
-	if err != nil {
-		body = string(c.Body())
-	}
+	// var body interface{}
+	// err := json.Unmarshal(c.Body(), &body)
+	// if err != nil {
+	// 	body = string(c.Body())
+	// }
 
-	payload := structs.Payload{
-		Status:  c.Response().StatusCode(),
-		Method:  c.Method(),
-		Path:    c.Path(),
-		IP:      c.IP(),
-		Headers: c.GetReqHeaders(),
-		Body:    body,
-	}
+	// payload := structs.Payload{
+	// 	Status:  c.Response().StatusCode(),
+	// 	Method:  c.Method(),
+	// 	Path:    c.Path(),
+	// 	IP:      c.IP(),
+	// 	Headers: c.GetReqHeaders(),
+	// 	Body:    body,
+	// }
 
-	LogItem("INFO", payload)
+	// LogItem("INFO", payload)
 	return c.Next()
 }
 

@@ -19,37 +19,45 @@ func RegisterUserRoutes(v fiber.Router) {
 	})
 
 	user.Post("/",
-	validation.ValidateUser,
+		validation.ValidateUser,
 		users.CreateUser,
 	)
 	//api/v1/user/:id
 	user.Get("/:id",
+		permissions.RequireAuth,
+
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.SelfCheck,
-			users.GetUser,
+		users.GetUser,
 	)
 
 	//api/v1/user/:id
 	user.Patch("/:id",
+		permissions.RequireAuth,
+
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.SelfCheck,
-			users.UpdateUser,
+		users.UpdateUser,
 	)
 	user.Put("/:id",
+		permissions.RequireAuth,
+
 		token.ExtractToken,
 		permissions.AdminCheck,
 		permissions.SelfCheck,
-			users.UpdateUser,
+		users.UpdateUser,
 	)
 
 	//api/v1/user/:id
 	user.Delete("/:id",
+		permissions.RequireAuth,
+
 		token.ExtractToken,
 		permissions.SelfCheck,
 		permissions.AdminCheck,
-			users.DeleteUser,
-)
+		users.DeleteUser,
+	)
 
 }

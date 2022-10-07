@@ -22,13 +22,12 @@ func OwnerModerator(c *fiber.Ctx) error {
 	}
 	// allow if either is true (owner or moderator)
 	claims := c.Locals("userclaims").(jwt.MapClaims)
-	userId,err := primitive.ObjectIDFromHex(claims["id"].(string))
+	userId, err := primitive.ObjectIDFromHex(claims["id"].(string))
 	if err != nil {
 		return c.Status(400).JSON(fiber.Map{
 			"msg": "Invalid user ID",
 		})
 	}
-
 
 	existingRoom := models.Room{}
 	err = config.ConnDB("Rooms").FindOne(c.Context(), bson.M{"_id": id}).Decode(&existingRoom)
@@ -37,10 +36,14 @@ func OwnerModerator(c *fiber.Ctx) error {
 			"msg": "Room not found",
 		})
 	}
+	fmt.Println(
+		existingRoom.Owner,
+		userId,
+	)
 
 	authorized := false
 	if userId == existingRoom.Owner {
-		fmt.Println("User is Room Owner", )
+		fmt.Println("User is Room Owner")
 		authorized = true
 	}
 	for _, m := range existingRoom.Settings.Moderators {
